@@ -1,6 +1,7 @@
 extends Node
 
 signal update
+signal status
 
 var protocols: Dictionary = {}
 var markups: Dictionary = {}
@@ -74,6 +75,10 @@ func convert_to_bbcode(base_url: String, type: String, data: PackedByteArray) ->
 	if best_name:
 		return markups[best_name].call(base_url, type, data)
 	return data.get_string_from_utf8()
+
+
+func status(message: String = "Done!"):
+	emit_signal("status", message)
 
 
 func resolve_url(base_url: String, rel_url: String) -> String:

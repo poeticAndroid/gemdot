@@ -8,6 +8,7 @@ var history: Array[String] = []
 func _ready():
 	homepage = Network.resolve_url("gemini://localhost/", homepage)
 	Network.update.connect(reload)
+	Network.status.connect(status)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,6 +39,10 @@ func go(url: String):
 	%Document.text = Network.request(url)
 
 
+func status(message: String = "Ready."):
+	%Status.text = message
+
+
 # ---
 
 
@@ -47,14 +52,15 @@ func _on_text_edit_text_changed():
 
 
 func _on_document_meta_hover_started(meta: String):
-	pass  # Replace with function body.
+	status(meta)
 
 
 func _on_document_meta_hover_ended(meta: String):
-	pass  # Replace with function body.
+	if %Status.text == meta:
+		status()
 
 
 func _on_document_meta_clicked(meta: String):
-	pass  # Replace with function body.
+	go(meta)
 
 
