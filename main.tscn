@@ -56,7 +56,7 @@ focus_mode = 2
 bbcode_enabled = true
 text = "[center]
 [img]res://gowser.png[/img]
-[font_size=64][color=#369][outline_size=42][outline_color=white]Gemdot[/outline_color][/outline_size][/color][/font_size]
+[font_size=64][b][color=#369][outline_size=42][outline_color=white]Gemdot[/outline_color][/outline_size][/color][/b][/font_size]
 [/center]"
 threaded = true
 selection_enabled = true

@@ -9,7 +9,7 @@ var location: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass  # Replace with function body.
+	DirAccess.make_dir_recursive_absolute("user://net_cache/")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,23 +26,57 @@ func add_markup(name: String, function: Callable):
 
 
 func request(url: String) -> String:
-	return "Loading " + url + " ..."
+	url = resolve_url(location, url)
+	var filename = "user://net_cache/" + url.md5_text()
+	if FileAccess.file_exists(filename + ".data"):
+		var expire = int(FileAccess.get_file_as_string(filename + ".expire"))
+		if Time.get_unix_time_from_system() > expire:
+			DirAccess.remove_absolute(filename + ".type")
+			DirAccess.remove_absolute(filename + ".data")
+			DirAccess.remove_absolute(filename + ".expire")
+		else:
+			var type = FileAccess.get_file_as_string(filename + ".type")
+			var data = FileAccess.get_file_as_bytes(filename + ".data")
+			return convert_to_bbcode(url, type, data)
+	var protocol = url.split(":")[0].to_lower()
+	if protocols.has(protocol):
+		return protocols[protocol].call(url)
+	OS.shell_open(url)
+	return "Unknown protocol \"" + protocol + "\""
 
 
-func cache(url: String, type: String, data: PackedByteArray):
+func cache(url: String, type: String, data: PackedByteArray, expire: int = 1):
+	url = resolve_url(location, url)
+	var filename = "user://net_cache/" + url.md5_text()
+	var file = FileAccess.open(filename + ".type", FileAccess.WRITE)
+	file.store_string(type)
+	file.close()
+	file = FileAccess.open(filename + ".data", FileAccess.WRITE)
+	file.store_buffer(data)
+	file.close()
+	file = FileAccess.open(filename + ".expire", FileAccess.WRITE)
+	file.store_string(str(Time.get_unix_time_from_system() + expire))
+	file.close()
 	emit_signal("update", location)
 
 
 func redirect(url: String):
-	location = url
+	location = resolve_url(location, url)
 	emit_signal("update", location)
 
 
 func convert_to_bbcode(base_url: String, type: String, data: PackedByteArray) -> String:
-	return "Conversion failed or something..."
+	base_url = resolve_url(location, base_url)
+	var best_name: String = ""
+	for name in markups:
+		if type.contains(name) and name.length() > best_name.length():
+			best_name = name
+	if best_name:
+		return markups[best_name].call(base_url, type, data)
+	return data.get_string_from_utf8()
 
 
-func resolve_url(base_url: String, rel_url: String):
+func resolve_url(base_url: String, rel_url: String) -> String:
 	if rel_url.contains(":") and rel_url.substr(0, rel_url.find(":")).is_valid_identifier():
 		base_url = ""
 	elif rel_url.begins_with("//"):

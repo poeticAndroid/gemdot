@@ -6,6 +6,7 @@ var history: Array[String] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	homepage = Network.resolve_url("gemini://localhost/", homepage)
 	Network.update.connect(reload)
 
 
@@ -27,7 +28,8 @@ func reload(url: String = history.back()):
 
 
 func go(url: String):
-	url = Network.resolve_url(history.back(), url)
+	if history.size():
+		url = Network.resolve_url(history.back(), url)
 	if history.back() != url:
 		history.push_back(url)
 	%UrlInp.text = url
