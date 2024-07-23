@@ -8,7 +8,7 @@ var history: Array[String] = []
 func _ready():
 	homepage = Network.resolve_url("gemini://localhost/", homepage)
 	Network.update.connect(reload)
-	Network.status.connect(status)
+	Network.status_change.connect(status)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

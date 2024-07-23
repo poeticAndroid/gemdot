@@ -1,7 +1,7 @@
 extends Node
 
 signal update
-signal status
+signal status_change
 
 var protocols: Dictionary = {}
 var markups: Dictionary = {}
