@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://biq5mdf6eaiwo"]
+[gd_scene load_steps=2 format=3 uid="uid://biq5mdf6eaiwo"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_aalta"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -7,33 +9,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_aalta")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ToolBar" type="HBoxContainer" parent="VBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="BackBtn" type="Button" parent="VBoxContainer/ToolBar"]
+[node name="ToolBar" type="HBoxContainer" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="BackBtn" type="Button" parent="VBoxContainer/PanelContainer2/ToolBar"]
 layout_mode = 2
 text = "👈"
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/ToolBar"]
+[node name="UrlInp" type="TextEdit" parent="VBoxContainer/PanelContainer2/ToolBar"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "gemini://"
 scroll_fit_content_height = true
 
-[node name="ReloadBtn" type="Button" parent="VBoxContainer/ToolBar"]
+[node name="ReloadBtn" type="Button" parent="VBoxContainer/PanelContainer2/ToolBar"]
 layout_mode = 2
 text = "🔄️"
 
@@ -41,15 +48,33 @@ text = "🔄️"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/MainContainer"]
+[node name="Document" type="RichTextLabel" parent="VBoxContainer/MainContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Nothing loaded yet."
+focus_mode = 2
+bbcode_enabled = true
+text = "[center]
+[img]res://gowser.png[/img]
+[font_size=64][color=#369][outline_size=42][outline_color=white]Gemdot[/outline_color][/outline_size][/color][/font_size]
+[/center]"
+threaded = true
+selection_enabled = true
 
-[node name="StatusBar" type="HBoxContainer" parent="VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/StatusBar"]
+[node name="StatusBar" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Status" type="Label" parent="VBoxContainer/PanelContainer/StatusBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Ready."
+
+[connection signal="pressed" from="VBoxContainer/PanelContainer2/ToolBar/BackBtn" to="." method="back"]
+[connection signal="text_changed" from="VBoxContainer/PanelContainer2/ToolBar/UrlInp" to="." method="_on_text_edit_text_changed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer2/ToolBar/ReloadBtn" to="." method="reload"]
+[connection signal="meta_clicked" from="VBoxContainer/MainContainer/Document" to="." method="_on_document_meta_clicked"]
+[connection signal="meta_hover_ended" from="VBoxContainer/MainContainer/Document" to="." method="_on_document_meta_hover_ended"]
+[connection signal="meta_hover_started" from="VBoxContainer/MainContainer/Document" to="." method="_on_document_meta_hover_started"]
