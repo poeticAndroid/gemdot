@@ -5,12 +5,21 @@ signal status_change
 
 var protocols: Dictionary = {}
 var markups: Dictionary = {}
+var types: Dictionary = {}
 
 var location: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	DirAccess.make_dir_recursive_absolute("user://net_cache/")
+	var typefile = FileAccess.get_file_as_string("res://protocols/types.txt").replace("\t", " ").split("/n")
+	for line in typefile:
+		var type = ""
+		if not line.strip_edges().begins_with("#"):
+			var exts = line.strip_edges().split(" ", false)
+			for ext in exts:
+				if type: types[ext.to_lower()] = type
+				else: type = ext.to_lower()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,19 +35,21 @@ func add_markup(name: String, function: Callable):
 	markups[name] = function
 
 
+func get_type(file_ext: String) -> String:
+	if types.has(file_ext.to_lower()):
+		return types[file_ext.to_lower()]
+	else:
+		return "application/octet-stream"
+
+
 func request(url: String) -> String:
 	url = resolve_url(location, url)
-	var filename = "user://net_cache/" + url.md5_text()
-	if FileAccess.file_exists(filename + ".data"):
-		var expire = int(FileAccess.get_file_as_string(filename + ".expire"))
-		if Time.get_unix_time_from_system() > expire:
-			DirAccess.remove_absolute(filename + ".type")
-			DirAccess.remove_absolute(filename + ".data")
-			DirAccess.remove_absolute(filename + ".expire")
-		else:
-			var type = FileAccess.get_file_as_string(filename + ".type")
-			var data = FileAccess.get_file_as_bytes(filename + ".data")
-			return convert_to_bbcode(url, type, data)
+	if is_cached(url):
+		var filename = "user://net_cache/" + url.md5_text()
+		var type = FileAccess.get_file_as_string(filename + ".type")
+		var data = FileAccess.get_file_as_bytes(filename + ".data")
+		return convert_to_bbcode(url, type, data)
+
 	var protocol = url.split(":")[0].to_lower()
 	if protocols.has(protocol):
 		return protocols[protocol].call(url)
@@ -48,6 +59,7 @@ func request(url: String) -> String:
 
 func cache(url: String, type: String, data: PackedByteArray, expire: int = 1):
 	url = resolve_url(location, url)
+	type = type.to_lower()
 	var filename = "user://net_cache/" + url.md5_text()
 	var file = FileAccess.open(filename + ".type", FileAccess.WRITE)
 	file.store_string(type)
@@ -61,6 +73,19 @@ func cache(url: String, type: String, data: PackedByteArray, expire: int = 1):
 	emit_signal("update", location)
 
 
+func is_cached(url) -> bool:
+	url = resolve_url(location, url)
+	var filename = "user://net_cache/" + url.md5_text()
+	var expire = float(FileAccess.get_file_as_string(filename + ".expire"))
+	if Time.get_unix_time_from_system() > expire:
+		DirAccess.remove_absolute(filename + ".type")
+		DirAccess.remove_absolute(filename + ".data")
+		DirAccess.remove_absolute(filename + ".expire")
+		return false
+	else:
+		return true
+
+
 func redirect(url: String):
 	location = resolve_url(location, url)
 	emit_signal("update", location)
@@ -68,13 +93,14 @@ func redirect(url: String):
 
 func convert_to_bbcode(base_url: String, type: String, data: PackedByteArray) -> String:
 	base_url = resolve_url(location, base_url)
+	type = type.to_lower()
 	var best_name: String = ""
 	for name in markups:
 		if type.contains(name) and name.length() > best_name.length():
 			best_name = name
 	if best_name:
 		return markups[best_name].call(base_url, type, data)
-	return data.get_string_from_utf8()
+	return "[code]" + data.get_string_from_utf8() + "[/code]"
 
 
 func status(message: String = "Done!"):

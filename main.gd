@@ -52,11 +52,11 @@ func _on_text_edit_text_changed():
 
 
 func _on_document_meta_hover_started(meta: String):
-	status(meta)
+	status("Link to " + Network.resolve_url(history.back(), meta))
 
 
 func _on_document_meta_hover_ended(meta: String):
-	if %Status.text == meta:
+	if %Status.text == "Link to " + Network.resolve_url(history.back(), meta):
 		status()
 
 
