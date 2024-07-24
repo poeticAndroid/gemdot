@@ -10,7 +10,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _on_timer_timeout():
 	if queue.size():
 		var url = queue.pop_front()
 		var file = url.replace("file://", "")
@@ -40,6 +40,6 @@ func request(url: String) -> String:
 	Network.status("Loading " + url + " ...")
 	if not queue.has(url):
 		queue.push_back(url)
-	return "Loading " + url + " ..."
+	return "Loading [url]" + url + "[/url] ..."
 
 
