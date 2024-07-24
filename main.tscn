@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://biq5mdf6eaiwo"]
+[gd_scene load_steps=5 format=3 uid="uid://biq5mdf6eaiwo"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_aalta"]
 [ext_resource type="PackedScene" uid="uid://mkukek2xdn2h" path="res://protocols/file.tscn" id="2_0xn8w"]
+[ext_resource type="PackedScene" uid="uid://cnh815bdf0u1m" path="res://markups/bbcode.tscn" id="3_h08gb"]
 
 [sub_resource type="SystemFont" id="SystemFont_kr182"]
 font_names = PackedStringArray("Lucida Console", "Cascadia Mono", "Courier New")
@@ -81,6 +82,10 @@ text = "Ready."
 [node name="Protocols" type="Node" parent="."]
 
 [node name="File" parent="Protocols" instance=ExtResource("2_0xn8w")]
+
+[node name="Markups" type="Node" parent="."]
+
+[node name="Bbcode" parent="Markups" instance=ExtResource("3_h08gb")]
 
 [connection signal="pressed" from="VBoxContainer/PanelContainer2/ToolBar/BackBtn" to="." method="back"]
 [connection signal="text_changed" from="VBoxContainer/PanelContainer2/ToolBar/UrlInp" to="." method="_on_text_edit_text_changed"]
