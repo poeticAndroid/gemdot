@@ -23,12 +23,14 @@ func _process(delta):
 			bbcode += "[/ul]"
 			Network.cache(url, "text/bbcode", bbcode.to_ascii_buffer())
 		elif file.ends_with("/"):
-			var bbcode = "[b]" + file + "[/b][ul]\n"
+			var bbcode = "[b]" + file + "[/b]\n[table=2]\n"
 			for name in DirAccess.get_directories_at(file):
-				bbcode += "[url]" + name + "/[/url]\n"
+				bbcode += "[cell][url]" + name + "/[/url][/cell]\n"
+				bbcode += "[cell]<DIR>[/cell]\n"
 			for name in DirAccess.get_files_at(file):
-				bbcode += "[url]" + name + "[/url]\n"
-			bbcode += "[/ul]"
+				bbcode += "[cell][url]" + name + "[/url][/cell]\n"
+				bbcode += "[cell]" + Network.get_type(name.get_extension()) + "[/cell]\n"
+			bbcode += "[/table]"
 			Network.cache(url, "text/bbcode", bbcode.to_ascii_buffer())
 		else:
 			Network.cache(url, Network.get_type(file.get_extension()), FileAccess.get_file_as_bytes(file), 10)
@@ -39,4 +41,5 @@ func request(url: String) -> String:
 	if not queue.has(url):
 		queue.push_back(url)
 	return "Loading " + url + " ..."
+
 

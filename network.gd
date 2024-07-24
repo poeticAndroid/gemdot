@@ -12,14 +12,17 @@ var location: String
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	DirAccess.make_dir_recursive_absolute("user://net_cache/")
-	var typefile = FileAccess.get_file_as_string("res://protocols/types.txt").replace("\t", " ").split("/n")
+	var typefile = FileAccess.get_file_as_string("res://protocols/types.txt").replace("\t", " ").replace("\r", " ").split("\n", false)
 	for line in typefile:
 		var type = ""
 		if not line.strip_edges().begins_with("#"):
 			var exts = line.strip_edges().split(" ", false)
 			for ext in exts:
-				if type: types[ext.to_lower()] = type
-				else: type = ext.to_lower()
+				if type.length():
+					types[ext.to_lower()] = type
+				else:
+					type = ext.to_lower()
+	print(JSON.stringify(types, "  "))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -144,3 +147,4 @@ func resolve_url(base_url: String, rel_url: String) -> String:
 	base_url += path
 	base_url += query
 	return base_url
+
