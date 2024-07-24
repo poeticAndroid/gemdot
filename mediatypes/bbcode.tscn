@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnh815bdf0u1m"]
-
-[ext_resource type="Script" path="res://mediatypes/bbcode.gd" id="1_iog2b"]
-
-[node name="Bbcode" type="Node"]
-script = ExtResource("1_iog2b")

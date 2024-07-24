@@ -1688,6 +1688,7 @@ text/csv					csv
 # text/enriched
 # text/example
 # text/fwdred
+text/gdscript   gd
 text/gemini   gmi gmni gemini
 # text/grammar-ref-list
 text/html					html htm

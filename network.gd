@@ -12,7 +12,10 @@ var location: String
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	DirAccess.make_dir_recursive_absolute("user://net_cache/")
-	var typefile = FileAccess.get_file_as_string("res://protocols/types.txt").replace("\t", " ").replace("\r", " ").split("\n", false)
+	for file in DirAccess.get_files_at("user://net_cache/"):
+		DirAccess.remove_absolute("user://net_cache/" + file)
+
+	var typefile = FileAccess.get_file_as_string("res://mediatypes/types.txt").replace("\t", " ").replace("\r", " ").split("\n", false)
 	for line in typefile:
 		var type = ""
 		if not line.strip_edges().begins_with("#"):
@@ -22,7 +25,6 @@ func _ready():
 					types[ext.to_lower()] = type
 				else:
 					type = ext.to_lower()
-	print(JSON.stringify(types, "  "))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

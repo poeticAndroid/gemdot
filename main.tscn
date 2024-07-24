@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://main.gd" id="1_aalta"]
 [ext_resource type="PackedScene" uid="uid://mkukek2xdn2h" path="res://protocols/file.tscn" id="2_0xn8w"]
-[ext_resource type="PackedScene" uid="uid://cnh815bdf0u1m" path="res://mediatypes/bbcode.tscn" id="3_h08gb"]
+[ext_resource type="PackedScene" uid="uid://bo6gc4u1k56nl" path="res://mediatypes/text.tscn" id="3_uwpsj"]
 
 [sub_resource type="SystemFont" id="SystemFont_kr182"]
 font_names = PackedStringArray("Lucida Console", "Cascadia Mono", "Courier New")
+subpixel_positioning = 0
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -64,6 +65,7 @@ text = "[center]
 [img]res://gowser.png[/img]
 [font_size=64][b][color=#369][outline_size=42][outline_color=white]Gemdot[/outline_color][/outline_size][/color][/b][/font_size]
 [/center]"
+context_menu_enabled = true
 threaded = true
 selection_enabled = true
 
@@ -85,7 +87,7 @@ text = "Ready."
 
 [node name="Mediatypes" type="Node" parent="."]
 
-[node name="Bbcode" parent="Mediatypes" instance=ExtResource("3_h08gb")]
+[node name="Text" parent="Mediatypes" instance=ExtResource("3_uwpsj")]
 
 [connection signal="pressed" from="VBoxContainer/PanelContainer2/ToolBar/BackBtn" to="." method="back"]
 [connection signal="text_changed" from="VBoxContainer/PanelContainer2/ToolBar/UrlInp" to="." method="_on_text_edit_text_changed"]
