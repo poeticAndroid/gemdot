@@ -4,7 +4,7 @@ signal update
 signal status_change
 
 var protocols: Dictionary = {}
-var markups: Dictionary = {}
+var mediatypes: Dictionary = {}
 var types: Dictionary = {}
 
 var location: String
@@ -34,8 +34,8 @@ func add_protocol(name: String, function: Callable):
 	protocols[name] = function
 
 
-func add_markup(name: String, function: Callable):
-	markups[name] = function
+func add_mediatype(name: String, function: Callable):
+	mediatypes[name] = function
 
 
 func get_type(file_ext: String) -> String:
@@ -98,11 +98,11 @@ func convert_to_bbcode(base_url: String, type: String, data: PackedByteArray) ->
 	base_url = resolve_url(location, base_url)
 	type = type.to_lower()
 	var best_name: String = ""
-	for name in markups:
+	for name in mediatypes:
 		if type.contains(name) and name.length() > best_name.length():
 			best_name = name
 	if best_name:
-		return markups[best_name].call(base_url, type, data)
+		return mediatypes[best_name].call(base_url, type, data)
 	return "[code]" + data.get_string_from_utf8() + "[/code]"
 
 
