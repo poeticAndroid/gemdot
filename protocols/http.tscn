@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl0hmky7hisxv"]
+
+[ext_resource type="Script" path="res://protocols/http.gd" id="1_v8upb"]
+
+[node name="Http" type="Node"]
+script = ExtResource("1_v8upb")
