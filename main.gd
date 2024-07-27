@@ -1,6 +1,6 @@
 extends Control
 
-@export var homepage: String = "http://poeticandroid.online"
+@export var homepage: String = "gemini://geminiprotocol.net/"
 
 var history: Array[String] = []
 

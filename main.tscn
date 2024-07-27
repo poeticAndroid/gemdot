@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://biq5mdf6eaiwo"]
+[gd_scene load_steps=8 format=3 uid="uid://biq5mdf6eaiwo"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_aalta"]
 [ext_resource type="PackedScene" uid="uid://mkukek2xdn2h" path="res://protocols/file.tscn" id="2_0xn8w"]
+[ext_resource type="PackedScene" uid="uid://c4p3qnafoctws" path="res://protocols/gemini.tscn" id="3_klptg"]
 [ext_resource type="PackedScene" uid="uid://bo6gc4u1k56nl" path="res://mediatypes/text.tscn" id="3_uwpsj"]
 [ext_resource type="PackedScene" uid="uid://bkuwkdby80f4q" path="res://mediatypes/image.tscn" id="4_0trd7"]
+[ext_resource type="PackedScene" uid="uid://bl0hmky7hisxv" path="res://protocols/http.tscn" id="4_dlxfu"]
 
 [sub_resource type="SystemFont" id="SystemFont_kr182"]
 font_names = PackedStringArray("Lucida Console", "Cascadia Mono", "Courier New")
@@ -85,6 +87,10 @@ text = "Ready."
 [node name="Protocols" type="Node" parent="."]
 
 [node name="File" parent="Protocols" instance=ExtResource("2_0xn8w")]
+
+[node name="Gemini" parent="Protocols" instance=ExtResource("3_klptg")]
+
+[node name="Http" parent="Protocols" instance=ExtResource("4_dlxfu")]
 
 [node name="Mediatypes" type="Node" parent="."]
 
