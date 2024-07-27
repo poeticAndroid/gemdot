@@ -67,18 +67,18 @@ func _process(_delta):
 					left -= 1
 				if tls.get_status() != StreamPeerTLS.STATUS_CONNECTED:
 					var response_code = int(header)
-					var type = "text/plain"
+					var meta = header.substr(3).strip_edges()
 					if tls.get_status() == StreamPeerTLS.STATUS_ERROR_HOSTNAME_MISMATCH:
 						Network.cache(url, "text/plain", "Connection error! (HOSTNAME_MISMATCH)".to_utf8_buffer())
 					elif tls.get_status() == StreamPeerTLS.STATUS_ERROR:
 						Network.cache(url, "text/plain", "Connection error!".to_utf8_buffer())
 					elif response_code >= 30 and response_code < 40:
-						Network.cache(url, type, data)
-						Network.redirect(Network.resolve_url(url, header.substr(3).strip_edges()))
+						Network.cache(url, "text/plain", header.to_utf8_buffer())
+						Network.redirect(Network.resolve_url(url, meta))
 					elif response_code >= 20 and response_code < 30:
-						Network.cache(url, type, data, 600)
+						Network.cache(url, meta, data, 600)
 					elif data.size():
-						Network.cache(url, type, data)
+						Network.cache(url, "text/plain", data)
 					else:
 						Network.cache(url, "text/plain", header.to_utf8_buffer())
 					queue.pop_front()
