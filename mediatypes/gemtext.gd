@@ -28,6 +28,11 @@ func convert_gemtext(base_url: String, type: String, data: PackedByteArray) -> S
 				bbcode += "[/i][/indent]"
 				quote = false
 
+		if line.begins_with("#") and not pre and not bbcode.begins_with("[title]"):
+			var title = line.replace("[", "[lb]")
+			while title.begins_with("#"): title = title.substr(1)
+			bbcode = "[title]" + title.strip_edges() + "[/title]" + bbcode
+
 		if line.begins_with("```"):
 			pre = not pre
 			if pre:

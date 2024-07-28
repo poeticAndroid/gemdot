@@ -29,6 +29,7 @@ func reload(url: String = history.back()):
 
 
 func go(url: String):
+	get_window().title = url + " - Gemdot"
 	if history.size():
 		url = Network.resolve_url(history.back(), url)
 	if history.back() != url:
@@ -36,7 +37,11 @@ func go(url: String):
 	%UrlInp.text = url
 	%UrlInp.set_caret_column(url.length())
 	Network.location = url
-	%Document.text = Network.request(url)
+	%Document.text = Network.request(url).strip_edges()
+	if %Document.text.begins_with("[title]"):
+		var parts = %Document.text.split("[/title]", true, 1)
+		get_window().title = parts[0].substr(7).strip_edges() + " - Gemdot"
+		%Document.text = parts[1].strip_edges() if parts.size() > 1 else parts[0]
 
 
 func status(message: String = "Ready."):
