@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://biq5mdf6eaiwo"]
+[gd_scene load_steps=9 format=3 uid="uid://biq5mdf6eaiwo"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_aalta"]
 [ext_resource type="PackedScene" uid="uid://mkukek2xdn2h" path="res://protocols/file.tscn" id="2_0xn8w"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bo6gc4u1k56nl" path="res://mediatypes/text.tscn" id="3_uwpsj"]
 [ext_resource type="PackedScene" uid="uid://bkuwkdby80f4q" path="res://mediatypes/image.tscn" id="4_0trd7"]
 [ext_resource type="PackedScene" uid="uid://bl0hmky7hisxv" path="res://protocols/http.tscn" id="4_dlxfu"]
+[ext_resource type="PackedScene" uid="uid://benslevo0c4wl" path="res://mediatypes/gemtext.tscn" id="7_joob0"]
 
 [sub_resource type="SystemFont" id="SystemFont_kr182"]
 font_names = PackedStringArray("Lucida Console", "Cascadia Mono", "Courier New")
@@ -97,6 +98,8 @@ text = "Ready."
 [node name="Text" parent="Mediatypes" instance=ExtResource("3_uwpsj")]
 
 [node name="Image" parent="Mediatypes" instance=ExtResource("4_0trd7")]
+
+[node name="Gemtext" parent="Mediatypes" instance=ExtResource("7_joob0")]
 
 [connection signal="pressed" from="VBoxContainer/PanelContainer2/ToolBar/BackBtn" to="." method="back"]
 [connection signal="text_changed" from="VBoxContainer/PanelContainer2/ToolBar/UrlInp" to="." method="_on_text_edit_text_changed"]
