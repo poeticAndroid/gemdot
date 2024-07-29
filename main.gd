@@ -9,6 +9,9 @@ func _ready():
 	homepage = Network.resolve_url("gemini://localhost/", homepage)
 	Network.update.connect(reload)
 	Network.status_change.connect(status)
+	for arg in OS.get_cmdline_user_args():
+		if arg.contains("://"):
+			go(arg)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
