@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://biq5mdf6eaiwo"]
+[gd_scene load_steps=10 format=3 uid="uid://biq5mdf6eaiwo"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_aalta"]
 [ext_resource type="PackedScene" uid="uid://mkukek2xdn2h" path="res://protocols/file.tscn" id="2_0xn8w"]
@@ -11,6 +11,8 @@
 [sub_resource type="SystemFont" id="SystemFont_kr182"]
 font_names = PackedStringArray("Lucida Console", "Cascadia Mono", "Courier New")
 subpixel_positioning = 0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p6fsl"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -64,6 +66,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 2
 theme_override_fonts/mono_font = SubResource("SystemFont_kr182")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_p6fsl")
 bbcode_enabled = true
 text = "[center]
 [img]res://gowser.png[/img]
