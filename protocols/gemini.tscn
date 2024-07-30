@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4p3qnafoctws"]
+
+[ext_resource type="Script" path="res://protocols/gemini.gd" id="1_s34fd"]
+
+[node name="Gemini" type="Node"]
+script = ExtResource("1_s34fd")

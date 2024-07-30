@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://benslevo0c4wl"]
+
+[ext_resource type="Script" path="res://mediatypes/gemtext.gd" id="1_gb2ie"]
+
+[node name="Gemtext" type="Node"]
+script = ExtResource("1_gb2ie")
