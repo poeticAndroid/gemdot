@@ -1,6 +1,6 @@
 extends Control
 
-@export var homepage: String = "gemini://geminiprotocol.net/"
+@export var homepage: String = "gemini://gemini.circumlunar.space/"
 
 var history: Array[String] = []
 
@@ -9,6 +9,7 @@ func _ready():
 	homepage = Network.resolve_url("gemini://localhost/", homepage)
 	Network.update.connect(reload)
 	Network.status_change.connect(status)
+	back()
 	for arg in OS.get_cmdline_user_args():
 		if arg.contains("://"):
 			go(arg)
