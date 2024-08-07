@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://biq5mdf6eaiwo"]
+[gd_scene load_steps=11 format=3 uid="uid://biq5mdf6eaiwo"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_aalta"]
 [ext_resource type="PackedScene" uid="uid://mkukek2xdn2h" path="res://protocols/file.tscn" id="2_0xn8w"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bkuwkdby80f4q" path="res://mediatypes/image.tscn" id="4_0trd7"]
 [ext_resource type="PackedScene" uid="uid://bl0hmky7hisxv" path="res://protocols/http.tscn" id="4_dlxfu"]
 [ext_resource type="PackedScene" uid="uid://benslevo0c4wl" path="res://mediatypes/gemtext.tscn" id="7_joob0"]
+[ext_resource type="PackedScene" uid="uid://6m87k3lc7quc" path="res://mediatypes/html.tscn" id="8_gn1cv"]
 
 [sub_resource type="SystemFont" id="SystemFont_kr182"]
 font_names = PackedStringArray("Lucida Console", "Cascadia Mono", "Courier New")
@@ -104,9 +105,16 @@ text = "Ready."
 
 [node name="Gemtext" parent="Mediatypes" instance=ExtResource("7_joob0")]
 
+[node name="Html" parent="Mediatypes" instance=ExtResource("8_gn1cv")]
+
+[node name="BootTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
 [connection signal="pressed" from="VBoxContainer/PanelContainer2/ToolBar/BackBtn" to="." method="back"]
 [connection signal="text_changed" from="VBoxContainer/PanelContainer2/ToolBar/UrlInp" to="." method="_on_text_edit_text_changed"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer2/ToolBar/ReloadBtn" to="." method="reload"]
 [connection signal="meta_clicked" from="VBoxContainer/MainContainer/Document" to="." method="_on_document_meta_clicked"]
 [connection signal="meta_hover_ended" from="VBoxContainer/MainContainer/Document" to="." method="_on_document_meta_hover_ended"]
 [connection signal="meta_hover_started" from="VBoxContainer/MainContainer/Document" to="." method="_on_document_meta_hover_started"]
+[connection signal="timeout" from="BootTimer" to="." method="back"]
