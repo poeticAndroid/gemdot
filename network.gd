@@ -13,7 +13,8 @@ var location: String
 func _ready():
 	DirAccess.make_dir_recursive_absolute("user://net_cache/")
 	for file in DirAccess.get_files_at("user://net_cache/"):
-		DirAccess.remove_absolute("user://net_cache/" + file)
+		if file.ends_with(".data"):
+			is_cached_file(file.replace(".data", ""))
 
 	var typefile = FileAccess.get_file_as_string("res://mediatypes/types.txt").replace("\t", " ").replace("\r", " ").split("\n", false)
 	for line in typefile:
@@ -78,9 +79,13 @@ func cache(url: String, type: String, data: PackedByteArray, expire: int = 1):
 	emit_signal("update", location)
 
 
-func is_cached(url) -> bool:
+func is_cached(url: String) -> bool:
 	url = resolve_url(location, url)
-	var filename = "user://net_cache/" + url.md5_text()
+	return is_cached_file(url.md5_text())
+
+
+func is_cached_file(file: String) -> bool:
+	var filename = "user://net_cache/" + file
 	var expire = float(FileAccess.get_file_as_string(filename + ".expire"))
 	if Time.get_unix_time_from_system() > expire:
 		DirAccess.remove_absolute(filename + ".type")
