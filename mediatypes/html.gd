@@ -27,7 +27,7 @@ func convert_html(base_url: String, type: String, data: PackedByteArray) -> Stri
 
 
 func html2dom(html: Dictionary, self_close: bool = false) -> Dictionary:
-	var dom = {}
+	var dom = { }
 	var el_start = html.pos
 	read_until(html, ["<"])
 	if html.pos >= html.str.length():
@@ -39,7 +39,7 @@ func html2dom(html: Dictionary, self_close: bool = false) -> Dictionary:
 		html.pos += 1
 		return dom
 	read_while(html, [" ", "\t", "\n"])
-	while html.pos < html.str.length() and not [">"].has(html.str[html.pos]):
+	while html.pos < html.str.length() and not[">"].has(html.str[html.pos]):
 		if html.str[html.pos] == "/":
 			read_until(html, [">"])
 			html.pos += 1
@@ -140,7 +140,7 @@ func dom2bb(dom: Dictionary, pre: bool = false, head: bool = false) -> String:
 			"p", "ul", "ol":
 				bb += "\n[" + tag._tag + "]" + dom2bb(tag, pre).strip_edges() + "[/" + tag._tag + "]"
 			"li":
-				bb +=  "\n" + dom2bb(tag, pre).strip_edges()
+				bb += "\n" + dom2bb(tag, pre).strip_edges()
 			"pre":
 				bb += "\n[code]" + dom2bb(tag, true) + "[/code]"
 
@@ -185,5 +185,3 @@ func read_until(istr: Dictionary, terms: Array[String]) -> String:
 		str += istr.str[istr.pos]
 		istr.pos += 1
 	return str
-
-

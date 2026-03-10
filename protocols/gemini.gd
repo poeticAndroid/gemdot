@@ -7,6 +7,7 @@ var tls: StreamPeerTLS
 var header: String
 var data: PackedByteArray
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Network.add_protocol("gemini", request)
@@ -90,5 +91,3 @@ func request(url: String) -> String:
 	if not queue.has(url):
 		queue.push_back(url)
 	return "Loading [url]" + url + "[/url] ..."
-
-

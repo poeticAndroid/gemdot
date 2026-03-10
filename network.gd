@@ -3,11 +3,12 @@ extends Node
 signal update
 signal status_change
 
-var protocols: Dictionary = {}
-var mediatypes: Dictionary = {}
-var types: Dictionary = {}
+var protocols: Dictionary = { }
+var mediatypes: Dictionary = { }
+var types: Dictionary = { }
 
 var location: String
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -154,4 +155,3 @@ func resolve_url(base_url: String, rel_url: String) -> String:
 	base_url += path
 	base_url += query
 	return base_url
-

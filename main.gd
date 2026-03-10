@@ -4,6 +4,7 @@ extends Control
 
 var history: Array[String] = []
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	homepage = Network.resolve_url("gemini://localhost/", homepage)
@@ -50,7 +51,6 @@ func go(url: String):
 func status(message: String = "Ready."):
 	%Status.text = message
 
-
 # ---
 
 
@@ -70,5 +70,3 @@ func _on_document_meta_hover_ended(meta: String):
 
 func _on_document_meta_clicked(meta: String):
 	go(meta)
-
-

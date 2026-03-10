@@ -29,5 +29,3 @@ func convert_bbcode(base_url: String, type: String, data: PackedByteArray) -> St
 
 func convert_text(base_url: String, type: String, data: PackedByteArray) -> String:
 	return "[code]" + data.get_string_from_utf8().replace("[", "[lb]") + "[/code]"
-
-

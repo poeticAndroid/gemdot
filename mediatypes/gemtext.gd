@@ -77,5 +77,3 @@ func convert_gemtext(base_url: String, type: String, data: PackedByteArray) -> S
 		bbcode += "[/i][/indent]"
 		quote = false
 	return bbcode
-
-

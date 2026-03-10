@@ -7,6 +7,7 @@ var headers_str: String
 var headers: Dictionary
 var data: PackedByteArray
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Network.add_protocol("http", request)
@@ -46,7 +47,7 @@ func _process(_delta):
 				tcp.put_data(("Connection: close\r\n").to_utf8_buffer())
 				tcp.put_data("\r\n".to_utf8_buffer())
 				headers_str = ""
-				headers = {}
+				headers = { }
 				data.clear()
 				state += 1
 			3:
@@ -97,5 +98,3 @@ func request(url: String) -> String:
 	if not queue.has(url):
 		queue.push_back(url)
 	return "Loading [url]" + url + "[/url] ..."
-
-

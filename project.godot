@@ -24,3 +24,7 @@ config/icon="res://gowser.png"
 [autoload]
 
 Network="*res://network.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/pretty-gd/plugin.cfg")

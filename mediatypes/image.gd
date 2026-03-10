@@ -1,6 +1,7 @@
 extends Node
 
-var imageTextures: Dictionary = {}
+var imageTextures: Dictionary = { }
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,4 +51,3 @@ func convert_tga(base_url: String, type: String, data: PackedByteArray) -> Strin
 
 func convert_webp(base_url: String, type: String, data: PackedByteArray) -> String:
 	return convert_image(base_url, "webp", data)
-

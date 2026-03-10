@@ -2,6 +2,7 @@ extends Node
 
 var queue: Array[String] = []
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Network.add_protocol("file", request)
@@ -41,5 +42,3 @@ func request(url: String) -> String:
 	if not queue.has(url):
 		queue.push_back(url)
 	return "Loading [url]" + url + "[/url] ..."
-
-
