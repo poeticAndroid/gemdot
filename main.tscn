@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://biq5mdf6eaiwo"]
+[gd_scene format=3 uid="uid://biq5mdf6eaiwo"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_aalta"]
+[ext_resource type="Script" uid="uid://mnvjcm17l654" path="res://main.gd" id="1_aalta"]
 [ext_resource type="PackedScene" uid="uid://mkukek2xdn2h" path="res://protocols/file.tscn" id="2_0xn8w"]
 [ext_resource type="PackedScene" uid="uid://c4p3qnafoctws" path="res://protocols/gemini.tscn" id="3_klptg"]
 [ext_resource type="PackedScene" uid="uid://bo6gc4u1k56nl" path="res://mediatypes/text.tscn" id="3_uwpsj"]
@@ -15,7 +15,7 @@ subpixel_positioning = 0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p6fsl"]
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" unique_id=1811258713]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aalta")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=581504480]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,32 +36,32 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer" unique_id=174674570]
 layout_mode = 2
 
-[node name="ToolBar" type="HBoxContainer" parent="VBoxContainer/PanelContainer2"]
+[node name="ToolBar" type="HBoxContainer" parent="VBoxContainer/PanelContainer2" unique_id=1861711591]
 layout_mode = 2
 
-[node name="BackBtn" type="Button" parent="VBoxContainer/PanelContainer2/ToolBar"]
+[node name="BackBtn" type="Button" parent="VBoxContainer/PanelContainer2/ToolBar" unique_id=913475326]
 layout_mode = 2
 text = "🔙"
 
-[node name="UrlInp" type="TextEdit" parent="VBoxContainer/PanelContainer2/ToolBar"]
+[node name="UrlInp" type="TextEdit" parent="VBoxContainer/PanelContainer2/ToolBar" unique_id=900030893]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "gemini://"
 scroll_fit_content_height = true
 
-[node name="ReloadBtn" type="Button" parent="VBoxContainer/PanelContainer2/ToolBar"]
+[node name="ReloadBtn" type="Button" parent="VBoxContainer/PanelContainer2/ToolBar" unique_id=1567026020]
 layout_mode = 2
 text = "🔄️"
 
-[node name="MainContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="MainContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=971270530]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Document" type="RichTextLabel" parent="VBoxContainer/MainContainer"]
+[node name="Document" type="RichTextLabel" parent="VBoxContainer/MainContainer" unique_id=1189431310]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -77,37 +77,37 @@ context_menu_enabled = true
 threaded = true
 selection_enabled = true
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=1770736975]
 layout_mode = 2
 
-[node name="StatusBar" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+[node name="StatusBar" type="HBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=1363537325]
 layout_mode = 2
 
-[node name="Status" type="Label" parent="VBoxContainer/PanelContainer/StatusBar"]
+[node name="Status" type="Label" parent="VBoxContainer/PanelContainer/StatusBar" unique_id=1701056257]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Ready."
 
-[node name="Protocols" type="Node" parent="."]
+[node name="Protocols" type="Node" parent="." unique_id=1913118622]
 
-[node name="File" parent="Protocols" instance=ExtResource("2_0xn8w")]
+[node name="File" parent="Protocols" unique_id=856627665 instance=ExtResource("2_0xn8w")]
 
-[node name="Gemini" parent="Protocols" instance=ExtResource("3_klptg")]
+[node name="Gemini" parent="Protocols" unique_id=402766361 instance=ExtResource("3_klptg")]
 
-[node name="Http" parent="Protocols" instance=ExtResource("4_dlxfu")]
+[node name="Http" parent="Protocols" unique_id=1737665200 instance=ExtResource("4_dlxfu")]
 
-[node name="Mediatypes" type="Node" parent="."]
+[node name="Mediatypes" type="Node" parent="." unique_id=1582004901]
 
-[node name="Text" parent="Mediatypes" instance=ExtResource("3_uwpsj")]
+[node name="Text" parent="Mediatypes" unique_id=1787613430 instance=ExtResource("3_uwpsj")]
 
-[node name="Image" parent="Mediatypes" instance=ExtResource("4_0trd7")]
+[node name="Image" parent="Mediatypes" unique_id=562075200 instance=ExtResource("4_0trd7")]
 
-[node name="Gemtext" parent="Mediatypes" instance=ExtResource("7_joob0")]
+[node name="Gemtext" parent="Mediatypes" unique_id=126353670 instance=ExtResource("7_joob0")]
 
-[node name="Html" parent="Mediatypes" instance=ExtResource("8_gn1cv")]
+[node name="Html" parent="Mediatypes" unique_id=307596802 instance=ExtResource("8_gn1cv")]
 
-[node name="BootTimer" type="Timer" parent="."]
+[node name="BootTimer" type="Timer" parent="." unique_id=1361447378]
 one_shot = true
 autostart = true
 
